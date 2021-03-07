@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Vue Js - GroupWork_2</title>
+    <!-- https://google.github.io/material-design-icons/#icon-font-for-the-web -->
+    <!-- Using via Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!-- https://tailwindcss.com/docs/installation -->
+    <!-- Using Tailwind via CDN -->
+    <link href="https://unpkg.com/tailwindcss@%5E2/dist/tailwind.min.css" rel="stylesheet" />
+    <!-- https://v3.vuejs.org/guide/installation.html#release-notes -->
+    <!-- Vue CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="//cdnjs.cloudﬂare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+
+</head>
+
+<body class="bg-gray-300">
+    <div class="h-screen bg-gray-300" id="app">
+        <div class="container flex justify-center py-5 pl">
+            <div class="p-3 bg-white rounded-xl max-w-lg hover:shadow ">
+                <div class="flex justify-between w-full "> <img :src="image" width="100" class="rounded-lg">
+                    <div class="ml-2">
+                        <div class="p-3">
+                            <h3 class="text-2xl">{{firstname}} {{lastname}}</h3> <span>{{info}}</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-200 rounded-lg">
+                            <div class="mr-3"> <span class="text-gray-400 block">Article</span> <span class="font-bold text-black text-xl">34</span> </div>
+                            <div class="mr-3"> <span class="text-gray-400 block">Followers</span> <span class="font-bold text-black text-xl">940</span> </div>
+                            <div> <span class="text-gray-400 block">Ratings</span> <span class="font-bold text-black text-xl">8.9</span> </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="flex justify-between items-center mt-2 gap-2"> <button class="w-full h-12 rounded-md border-2 text-md hover:shadow hover:bg-red-700 hover:border-red-700 hover:text-white ">Chat</button> <button class="w-full h-12 rounded-md bg-blue-700 text-white text-md hover:shadow hover:bg-blue-800">Chat</button> </div>
+            
+            </div>
+            <!-- varidate -->
+            
+        </div>
+    <div class = "py-20">
+        <form @submit.prevent="checkForm " >
+            <div class="container w-2/5 p-8 mx-auto mt-10 border rounded-lg bg-white bg-green-200">
+                <h1 class="text-3xl pt-4 pb-4">Account</h1>
+                <p v-if="errors" class="text-red-500">
+                    <b>Please correct the following error(s):</b>
+                    <ul>
+                       <li v-for="error in errors" class="text-red-500">{{ error }}</li> 
+                    </ul>
+                </p>
+                <div class="grid  gap-4">
+                    <div class="flex flex-col">
+                        <label for="username" class="text-sm leading-7 text-gray-600">Username</label>
+                        <input type="text" id="username" v-model="username" name="username" class="text-md block px-3 py-2 rounded-lg w-full 
+                        bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md">
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="password" class="text-sm leading-7 text-gray-600 ">Password</label>
+                        <input  type="text" id="password" v-model="password" name="password" class="text-md block px-3 py-2 rounded-lg w-full 
+                        bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md">
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="age" class="text-sm leading-7 text-gray-600">Age</label>
+                        <input type="text" id="age" v-model="age" name="age" class="text-md block px-3 py-2 rounded-lg w-full 
+                        bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md">
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="text-sm leading-7 text-gray-600">Gender</label>
+                        <div class="flex flex-row pt-2 space-x-2">
+                            <input type="radio" id="Male" v-model="gender" name="gender" value="M" class="bg-gray-100 rounded px-4 py-2 mb-4">
+                            <label for="Male">Male</label>
+                            <input type="radio" id="Female" v-model="gender" name="gender" value="F" class="bg-gray-100 rounded px-4 py-2 mb-4">
+                            <label for="Female">Female</label>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="email" class="text-sm leading-7 text-gray-600">Email</label>
+                        <input type="text" id="email" v-model="email" name="email" class="text-md block px-3 py-2 rounded-lg w-full 
+                        bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md">
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="phone"class="text-sm leading-7 text-gray-600">Phone Number</label>
+                        <input type="text" id="phone" v-model="phone" name="phone" class="text-md block px-3 py-2 rounded-lg w-full 
+                        bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md">
+                    </div>
+                    <div class="flex flex-col ">
+                        <label for="chosenlangs"class="text-sm leading-7 text-gray-600">Languages</label>
+                        <select id="chosenlangs" v-model="chosenlangs" name="chosenlangs" class="text-md block px-3 py-2 rounded-lg w-full 
+                        bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md">
+                        <option v-for="langs in langs_lists" :value="langs.langs_id">
+                            {{langs.langs_name}}
+                        </option>
+                    </div>
+                    <div >
+                        <input type="submit" value="Submit" class="px-8 py-2 mt-5 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">
+                    </div>
+                </div>
+            </div> 
+        </form>
+        </div>
+    </div>
+    
+
+    <script src="profile.js">
+    </script>
+
+</body>
+
+</html>
